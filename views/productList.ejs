@@ -18,11 +18,18 @@
           <div class="card-grid">
             <% list.forEach((item) =>{ %>
               <article class="info-card">
-                <h3><%= item.productname %></h3>
+                <div class="info-head">
+                    <h3><%= item.productname %></h3>
+                    <div class="update">
+                        <a href=""><img src="/images/delete (1).png" alt="delete" class="update-img"></a>
+                        <a href=""><img src="/images/edit-button.png" alt="edit" class="update-img"></a>
+                    </div>
+                </div>
                 <p><span>Category</span><strong><%= item.categoryname %></strong></p>
                 <p><span>MRP</span><strong><%= item.sellprice %></strong></p>
                 <p><span>Cost Price</span><strong><%= item.costprice %></strong></p>
                 <p><span>Stock</span><strong><%= item.stock %></strong></p>
+                
               </article>
             <% }) %>
           </div>

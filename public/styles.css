@@ -245,6 +245,9 @@ button:hover {
 
 .list-row {
   padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .form-section {
@@ -254,6 +257,21 @@ button:hover {
 .styled-form {
   display: grid;
   gap: 14px;
+}
+
+.info-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.update-img {
+  width: 1rem;
+}
+
+.update {
+  display: flex;
+  gap: 1rem;
 }
 
 label {
