@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/htmlhead.ejs") %>
+  <body>
+    <main class="page-shell">
+      <%- include("./partials/header.ejs") %>
+      <section class="page-section">
+        <div class="section-heading">
+          <p class="section-kicker">Overview</p>
+          <h2>Recently tracked products</h2>
+        </div>
+        <% if(list.length === 0) { %>
+          <div class="empty-state">
+            <h3>Inventory list is empty</h3>
+            <p>Add your first product to start tracking items here.</p>
+          </div>
+        <% } else{ %>
+          <div class="card-grid">
+            <% list.forEach((item) =>{ %>
+              <article class="info-card">
+                <h3><%= item.productname %></h3>
+                <p><span>Category</span><strong><%= item.categoryname %></strong></p>
+              </article>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

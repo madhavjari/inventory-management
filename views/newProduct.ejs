@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/htmlhead.ejs") %>
+  <body>
+    <main class="page-shell">
+      <%- include("./partials/header.ejs") %>
+      <section class="page-section form-section">
+        <div class="section-heading">
+          <p class="section-kicker">Create</p>
+          <h2>Add a Product</h2>
+        </div>
+        <form class="styled-form" method="POST" action="/newproduct">
+          <label for="name">Product Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="sellPrice">Selling Price</label>
+          <input type="number" name="sellPrice" id="sellPrice" required />
+
+          <label for="costPrice">Cost Price</label>
+          <input type="number" name="costPrice" id="costPrice" required />
+
+          <label for="stock">Stock</label>
+          <input type="number" name="stock" id="stock" required />
+
+          <label for="category">Select a Category</label>
+          <select name="category" id="category" required>
+               <% console.log("hello",categoryList) %>
+               <% categoryList.forEach((category) => { %>
+              <option value="<%= category.id %>"><%= category.categoryname %></option>
+              <% }); %>
+          </select>
+
+          <button type="submit">Save Product</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

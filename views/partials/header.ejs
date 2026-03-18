@@ -1,0 +1,25 @@
+<header class="hero-header">
+  <p class="eyebrow">Inventory Dashboard</p>
+  <h1>Beauty Products Inventory Management</h1>
+  <p class="hero-copy">
+    Manage your catalog, categories, pricing, and stock with a cleaner daily
+    workflow.
+  </p>
+  <div class="stats-grid">
+    <article class="stat-card">
+      <span class="stat-label">Total Categories</span>
+      <strong><%= categoryCount %></strong>
+    </article>
+    <article class="stat-card">
+      <span class="stat-label">Total Items</span>
+      <strong><%= productCount %></strong>
+    </article>
+  </div>
+  <nav class="top-nav">
+    <a href="/">Dashboard</a>
+    <a href="/productList">Product List</a>
+    <a href="/categoryList">Category List</a>
+    <a href="/newproduct">Add Product</a>
+    <a href="/newcategory">Add Category</a>
+  </nav>
+</header>

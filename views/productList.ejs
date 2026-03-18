@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/htmlhead.ejs") %>
+  <body>
+    <main class="page-shell">
+      <%- include("./partials/header.ejs") %>
+      <section class="page-section">
+        <div class="section-heading">
+          <p class="section-kicker">Catalog</p>
+          <h2>Product List</h2>
+        </div>
+        <% if(list.length === 0) { %>
+          <div class="empty-state">
+            <h3>Product list is empty</h3>
+            <p>Add a product to see pricing, stock, and category details here.</p>
+          </div>
+        <% } else{ %>
+          <div class="card-grid">
+            <% list.forEach((item) =>{ %>
+              <article class="info-card">
+                <h3><%= item.productname %></h3>
+                <p><span>Category</span><strong><%= item.categoryname %></strong></p>
+                <p><span>MRP</span><strong><%= item.sellprice %></strong></p>
+                <p><span>Cost Price</span><strong><%= item.costprice %></strong></p>
+                <p><span>Stock</span><strong><%= item.stock %></strong></p>
+              </article>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
