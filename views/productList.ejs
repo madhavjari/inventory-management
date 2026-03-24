@@ -19,11 +19,90 @@
             <% list.forEach((item) =>{ %>
               <article class="info-card">
                 <div class="info-head">
-                    <h3><%= item.productname %></h3>
-                    <div class="update">
-                        <a href=""><img src="/images/delete (1).png" alt="delete" class="update-img"></a>
-                        <a href=""><img src="/images/edit-button.png" alt="edit" class="update-img"></a>
-                    </div>
+                  <h3><%= item.productname %></h3>
+                  <div class="product-actions">
+                    <button
+                      class="icon-action delete-action"
+                      type="button"
+                      aria-label="Delete feature coming soon"
+                      title="Delete feature coming soon"
+                    >
+                      <span class="action-icon" aria-hidden="true">✕</span>
+                      <span>Delete</span>
+                    </button>
+                    <button
+                      class="icon-action edit-button"
+                      type="button"
+                      data-dialog-id="user-<%= item.productid %>"
+                    >
+                      <span class="action-icon" aria-hidden="true">✎</span>
+                      <span>Update</span>
+                    </button>
+                    <dialog class="edit-form" id="user-<%= item.productid %>">
+                      <form class="styled-form modal-form" action="/productList" method="post">
+                        <div class="dialog-header">
+                          <div>
+                            <p class="section-kicker">Update Product</p>
+                            <h3>Edit <%= item.productname %></h3>
+                          </div>
+                          <button class="close-button" type="button" aria-label="Close dialog">&times;</button>
+                        </div>
+
+                        <label for="name-<%= item.productid %>">Product Name</label>
+                        <input
+                          type="text"
+                          id="name-<%= item.productid %>"
+                          name="name"
+                          value="<%= item.productname %>"
+                          required
+                        />
+
+                        <label for="sellPrice-<%= item.productid %>">Selling Price</label>
+                        <input
+                          type="number"
+                          name="sellPrice"
+                          id="sellPrice-<%= item.productid %>"
+                          value="<%= item.sellprice %>"
+                          required
+                        />
+
+                        <label for="costPrice-<%= item.productid %>">Cost Price</label>
+                        <input
+                          type="number"
+                          name="costPrice"
+                          id="costPrice-<%= item.productid %>"
+                          value="<%= item.costprice %>"
+                          required
+                        />
+
+                        <label for="stock-<%= item.productid %>">Stock</label>
+                        <input
+                          type="number"
+                          name="stock"
+                          id="stock-<%= item.productid %>"
+                          value="<%= item.stock %>"
+                          required
+                        />
+
+                        <label for="category-<%= item.productid %>">Select a Category</label>
+                        <select name="category" id="category-<%= item.productid %>" required>
+                          <% categoryList.forEach((category) => { %>
+                            <option
+                              value="<%= category.id %>"
+                              <%= category.categoryname === item.categoryname ? "selected" : "" %>
+                            >
+                              <%= category.categoryname %>
+                            </option>
+                          <% }); %>
+                        </select>
+
+                        <div class="dialog-actions">
+                          <button class="ghost-button close-button" type="button">Cancel</button>
+                          <button type="submit">Save Changes</button>
+                        </div>
+                      </form>
+                    </dialog>
+                  </div>
                 </div>
                 <p><span>Category</span><strong><%= item.categoryname %></strong></p>
                 <p><span>MRP</span><strong><%= item.sellprice %></strong></p>
@@ -37,4 +116,44 @@
       </section>
     </main>
   </body>
+  <script>
+    const editButton = document.querySelectorAll(".edit-button");
+    const closeButton = document.querySelectorAll(".close-button");
+
+    editButton.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const dialogId = event.currentTarget.dataset.dialogId;
+        const editForm = document.getElementById(dialogId);
+
+        if (editForm) {
+          editForm.showModal();
+        }
+      });
+    });
+
+    closeButton.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const editForm = event.currentTarget.closest("dialog");
+
+        if (editForm) {
+          editForm.close();
+        }
+      });
+    });
+
+    document.querySelectorAll(".edit-form").forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        const clickedBackdrop =
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom;
+
+        if (clickedBackdrop) {
+          dialog.close();
+        }
+      });
+    });
+  </script>
 </html>

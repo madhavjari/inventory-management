@@ -24,7 +24,6 @@
 
           <label for="category">Select a Category</label>
           <select name="category" id="category" required>
-               <% console.log("hello",categoryList) %>
                <% categoryList.forEach((category) => { %>
               <option value="<%= category.id %>"><%= category.categoryname %></option>
               <% }); %>

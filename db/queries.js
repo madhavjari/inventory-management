@@ -31,7 +31,7 @@ async function insertCategoryData(categoryData) {
 
 async function joinItemsOnCategory() {
   const { rows } = await pool.query(
-    `SELECT productname,sellprice,stock,costprice,categoryname 
+    `SELECT productid, productname,sellprice,stock,costprice,categoryname 
     FROM cosmetic_item 
     JOIN category ON category.id = cosmetic_item.category_id`,
   );
