@@ -20,6 +20,22 @@ async function insertProductData(productData) {
   );
 }
 
+async function editProduct(productData, productId) {
+  await pool.query(
+    `UPDATE cosmetic_item 
+    SET productname = $1, sellprice = $2,
+    stock = $3,costprice = $4, category_id = $5 WHERE productid = $6`,
+    [
+      productData.name,
+      productData.sellPrice,
+      productData.stock,
+      productData.costPrice,
+      productData.category,
+      productId,
+    ],
+  );
+}
+
 async function insertCategoryData(categoryData) {
   await pool.query(
     `INSERT INTO category
@@ -27,6 +43,13 @@ async function insertCategoryData(categoryData) {
     VALUES ($1)`,
     [categoryData.categoryName],
   );
+}
+
+async function editCategory(categoryData, categoryId) {
+  await pool.query(`UPDATE category SET categoryname = $1 WHERE id = $2`, [
+    categoryData.categoryName,
+    categoryId,
+  ]);
 }
 
 async function joinItemsOnCategory() {
@@ -64,4 +87,6 @@ module.exports = {
   countItemsCategorys,
   insertProductData,
   insertCategoryData,
+  editProduct,
+  editCategory,
 };

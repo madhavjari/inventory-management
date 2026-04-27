@@ -1,11 +1,10 @@
 const db = require("../db/queries");
 
-async function editProductGet(req, res) {
-  res.render("/editProduct");
-}
-
 async function editProductPost(req, res) {
+  const productId = req.params.id;
+  const productData = await req.body;
+  await db.editProduct(productData, productId);
   res.redirect("/productList");
 }
 
-module.exports = { editProductGet, editProductPost };
+module.exports = { editProductPost };

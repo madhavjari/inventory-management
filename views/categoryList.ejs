@@ -15,14 +15,56 @@
             <p>Create a category to group your products more clearly.</p>
           </div>
         <% } else{ %>
-          <div class="simple-list">
+          <div class="card-grid">
             <% list.forEach((item) =>{ %>
-              <article class="list-row">
-                <h3><%= item.categoryname %></h3>
-                <div class="update">
-                    <a href=""><img src="/images/delete (1).png" alt="delete" class="update-img"></a>
-                    <a href=""><img src="/images/edit-button.png" alt="edit" class="update-img"></a>
+              <article class="info-card">
+                <div class="info-head">
+                  <h3><%= item.categoryname %></h3>
+                  <div class="product-actions">
+                    <button
+                      class="icon-action delete-action"
+                      type="button"
+                      aria-label="Delete category"
+                      title="Delete category"
+                    >
+                      <span class="action-icon" aria-hidden="true">✕</span>
+                    </button>
+                    <button
+                      class="icon-action edit-button"
+                      type="button"
+                      aria-label="Edit category"
+                      title="Edit category"
+                      data-dialog-id="user-<%= item.id %>"
+                    >
+                      <span class="action-icon" aria-hidden="true">✎</span>
+                    </button>
+                    <dialog class="edit-form" id="user-<%= item.id %>">
+                    <form class="styled-form modal-form" action="/editcategory/<%= item.id %>" method="post">
+                     <div class="dialog-header">
+                        <div>
+                          <p class="section-kicker">Update Category</p>
+                          <h3>Edit <%= item.categoryname %></h3>
+                        </div>
+                        <button class="close-button" type="button" aria-label="Close dialog">&times;</button>
+                      </div>
+                       <label for="name-<%= item.id %>">Category Name</label>
+                        <input
+                          type="text"
+                          id="name-<%= item.id %>"
+                          name="categoryName"
+                          value="<%= item.categoryname %>"
+                          required
+                        />
+                        <div class="dialog-actions">
+                          <button class="ghost-button close-button" type="button">Cancel</button>
+                          <button type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                </dialog>
+                  </div>
                 </div>
+                <p><span>Type</span><strong>Product Category</strong></p>
+                
               </article>
             <% }) %>
           </div>
@@ -30,4 +72,31 @@
       </section>
     </main>
   </body>
+  <script>
+    const editButton = document.querySelectorAll(".edit-button");
+    const closeButton = document.querySelectorAll(".close-button");
+
+    editButton.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        console.log(button);
+        const dialogId = event.currentTarget.dataset.dialogId;
+        console.log(dialogId);
+        const editForm = document.getElementById(dialogId);
+
+        if (editForm) {
+          editForm.showModal();
+        }
+      });
+    });
+
+    closeButton.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const editForm = event.currentTarget.closest("dialog");
+
+        if (editForm) {
+          editForm.close();
+        }
+      });
+    });
+  </script>
 </html>

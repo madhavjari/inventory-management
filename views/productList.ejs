@@ -24,22 +24,22 @@
                     <button
                       class="icon-action delete-action"
                       type="button"
-                      aria-label="Delete feature coming soon"
-                      title="Delete feature coming soon"
+                      aria-label="Delete product"
+                      title="Delete product"
                     >
                       <span class="action-icon" aria-hidden="true">✕</span>
-                      <span>Delete</span>
                     </button>
                     <button
                       class="icon-action edit-button"
                       type="button"
                       data-dialog-id="user-<%= item.productid %>"
+                      aria-label="Edit product"
+                      title="Edit product"
                     >
                       <span class="action-icon" aria-hidden="true">✎</span>
-                      <span>Update</span>
                     </button>
                     <dialog class="edit-form" id="user-<%= item.productid %>">
-                      <form class="styled-form modal-form" action="/productList" method="post">
+                      <form class="styled-form modal-form" action="/editproduct/<%= item.productid %>" method="post">
                         <div class="dialog-header">
                           <div>
                             <p class="section-kicker">Update Product</p>
