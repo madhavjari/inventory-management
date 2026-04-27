@@ -52,6 +52,14 @@ async function editCategory(categoryData, categoryId) {
   ]);
 }
 
+async function deleteCategory(categoryId) {
+  await pool.query(`DELETE FROM category WHERE id = $1`, [categoryId]);
+}
+
+async function deleteProduct(id) {
+  await pool.query(`DELETE FROM cosmetic_item WHERE productid = $1`, [id]);
+}
+
 async function joinItemsOnCategory() {
   const { rows } = await pool.query(
     `SELECT productid, productname,sellprice,stock,costprice,categoryname 
@@ -89,4 +97,6 @@ module.exports = {
   insertCategoryData,
   editProduct,
   editCategory,
+  deleteCategory,
+  deleteProduct,
 };

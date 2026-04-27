@@ -316,6 +316,10 @@ button:hover {
   background: linear-gradient(135deg, #d58a63 0%, #b55d4c 100%);
 }
 
+.danger-button {
+  background: linear-gradient(135deg, #8e3148 0%, #68233a 100%);
+}
+
 .icon-action:hover {
   transform: translateY(-2px) scale(1.04);
 }
@@ -334,13 +338,31 @@ button:hover {
   box-shadow: 0 30px 70px rgba(63, 37, 35, 0.28);
 }
 
+.confirm-dialog {
+  width: min(92vw, 460px);
+  border: 1px solid rgba(145, 98, 84, 0.18);
+  border-radius: 28px;
+  padding: 0;
+  background: #fffaf5;
+  box-shadow: 0 30px 70px rgba(63, 37, 35, 0.28);
+}
+
 .edit-form::backdrop {
+  background: rgba(52, 27, 26, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.confirm-dialog::backdrop {
   background: rgba(52, 27, 26, 0.42);
   backdrop-filter: blur(6px);
 }
 
 .modal-form {
   gap: 12px;
+  padding: 24px;
+}
+
+.confirm-shell {
   padding: 24px;
 }
 
@@ -354,6 +376,16 @@ button:hover {
 
 .dialog-header h3 {
   font-size: 2rem;
+}
+
+.danger-kicker {
+  color: #8e3148;
+}
+
+.confirm-copy {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .close-button {
@@ -378,8 +410,14 @@ button:hover {
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 12px;
+}
+
+.dialog-actions form {
+  margin: 0;
 }
 
 .ghost-button {
@@ -460,6 +498,11 @@ button {
   .dialog-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .dialog-actions form,
+  .dialog-actions form button {
+    width: 100%;
   }
 
   .product-actions {

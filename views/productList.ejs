@@ -26,9 +26,30 @@
                       type="button"
                       aria-label="Delete product"
                       title="Delete product"
+                      data-dialog-id="delete-<%= item.productid %>"
                     >
                       <span class="action-icon" aria-hidden="true">✕</span>
                     </button>
+                    <dialog class="confirm-dialog" id="delete-<%= item.productid %>">
+                      <div class="confirm-shell">
+                        <div class="dialog-header">
+                          <div>
+                            <p class="section-kicker danger-kicker">Delete Product</p>
+                            <h3>Remove <%= item.productname %>?</h3>
+                          </div>
+                          <button class="close-button" type="button" aria-label="Close dialog">&times;</button>
+                        </div>
+                        <p class="confirm-copy">
+                          This will permanently remove the product from your inventory list.
+                        </p>
+                        <div class="dialog-actions">
+                          <button class="ghost-button close-button" type="button">Cancel</button>
+                          <form action="/deleteproduct/<%= item.productid %>" method="post">
+                            <button class="danger-button" type="submit">Delete Product</button>
+                          </form>
+                        </div>
+                      </div>
+                    </dialog>
                     <button
                       class="icon-action edit-button"
                       type="button"
@@ -119,6 +140,7 @@
   <script>
     const editButton = document.querySelectorAll(".edit-button");
     const closeButton = document.querySelectorAll(".close-button");
+    const deleteButton = document.querySelectorAll(".delete-action");
 
     editButton.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -141,7 +163,7 @@
       });
     });
 
-    document.querySelectorAll(".edit-form").forEach((dialog) => {
+    document.querySelectorAll("dialog").forEach((dialog) => {
       dialog.addEventListener("click", (event) => {
         const bounds = dialog.getBoundingClientRect();
         const clickedBackdrop =
@@ -155,5 +177,15 @@
         }
       });
     });
+    deleteButton.forEach((button) =>{
+      button.addEventListener("click", (event)=>{
+        const dialogId = event.currentTarget.dataset.dialogId;
+        const deleteProduct = document.getElementById(dialogId);
+
+        if(deleteProduct){
+          deleteProduct.showModal();
+        }
+      })
+    })
   </script>
 </html>

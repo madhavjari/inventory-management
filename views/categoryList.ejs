@@ -26,9 +26,30 @@
                       type="button"
                       aria-label="Delete category"
                       title="Delete category"
+                      data-dialog-id="delete-<%= item.id %>"
                     >
                       <span class="action-icon" aria-hidden="true">✕</span>
                     </button>
+                    <dialog class="confirm-dialog" id="delete-<%= item.id %>">
+                      <div class="confirm-shell">
+                        <div class="dialog-header">
+                          <div>
+                            <p class="section-kicker danger-kicker">Delete Category</p>
+                            <h3>Remove <%= item.categoryname %>?</h3>
+                          </div>
+                          <button class="close-button" type="button" aria-label="Close dialog">&times;</button>
+                        </div>
+                        <p class="confirm-copy">
+                          This will permanently remove the category from your inventory organization.
+                        </p>
+                        <div class="dialog-actions">
+                          <button class="ghost-button close-button" type="button">Cancel</button>
+                          <form action="/deletecategory/<%= item.id %>" method="post">
+                            <button class="danger-button" type="submit">Delete Category</button>
+                          </form>
+                        </div>
+                      </div>
+                    </dialog>
                     <button
                       class="icon-action edit-button"
                       type="button"
@@ -75,12 +96,11 @@
   <script>
     const editButton = document.querySelectorAll(".edit-button");
     const closeButton = document.querySelectorAll(".close-button");
+    const deleteButton = document.querySelectorAll(".delete-action");
 
     editButton.forEach((button) => {
       button.addEventListener("click", (event) => {
-        console.log(button);
         const dialogId = event.currentTarget.dataset.dialogId;
-        console.log(dialogId);
         const editForm = document.getElementById(dialogId);
 
         if (editForm) {
@@ -98,5 +118,31 @@
         }
       });
     });
+
+    document.querySelectorAll("dialog").forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        const clickedBackdrop =
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom;
+
+        if (clickedBackdrop) {
+          dialog.close();
+        }
+      });
+    });
+
+    deleteButton.forEach((button) =>{
+      button.addEventListener("click", (event)=>{
+        const dialogId = event.currentTarget.dataset.dialogId;
+        const deleteCategory = document.getElementById(dialogId);
+
+        if(deleteCategory){
+          deleteCategory.showModal();
+        }
+      })
+    })
   </script>
 </html>
