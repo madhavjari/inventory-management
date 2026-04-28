@@ -94,6 +94,14 @@
     </main>
   </body>
   <script>
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('error') === 'in_use') {
+    alert("Category in use, cannot delete");
+    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+  }
+
     const editButton = document.querySelectorAll(".edit-button");
     const closeButton = document.querySelectorAll(".close-button");
     const deleteButton = document.querySelectorAll(".delete-action");

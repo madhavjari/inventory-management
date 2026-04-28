@@ -19,7 +19,8 @@ VALUES ('Himalayan Facewash',150,5,120,2)`;
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.DB_URL_LOCAL,
+    connectionString:
+      process.env.NODE_ENV === "production" ? DB_URL : DB_URL_LOCAL,
   });
   await client.connect();
   await client.query(SQL2);

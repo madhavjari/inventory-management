@@ -60,6 +60,14 @@ async function deleteProduct(id) {
   await pool.query(`DELETE FROM cosmetic_item WHERE productid = $1`, [id]);
 }
 
+async function searchCategoryInProduct(id) {
+  const { rows } = await pool.query(
+    `SELECT * FROM cosmetic_item WHERE category_id = $1`,
+    [id],
+  );
+  return rows;
+}
+
 async function joinItemsOnCategory() {
   const { rows } = await pool.query(
     `SELECT productid, productname,sellprice,stock,costprice,categoryname 
@@ -99,4 +107,5 @@ module.exports = {
   editCategory,
   deleteCategory,
   deleteProduct,
+  searchCategoryInProduct,
 };
